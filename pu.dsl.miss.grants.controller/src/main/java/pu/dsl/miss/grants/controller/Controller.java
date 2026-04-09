@@ -10,14 +10,31 @@ private CommandChannel commandsChannel;
 private State currentState;
 private StateMachine machine;
 
-public Controller( CommandChannel aCommandsChannel, State aCurrentState, StateMachine aMachine )
+public Controller( State aCurrentState, StateMachine aMachine )
 {
-	super();
-	commandsChannel = aCommandsChannel;
-	currentState = aCurrentState;
-	machine = aMachine;
+	this( new CommandChannel(), aCurrentState, aMachine );
 }
 
+public Controller( CommandChannel aCommandChannel, State aCurrentState, StateMachine aMachine )
+{
+	super();
+	commandsChannel = aCommandChannel;
+	currentState = aCurrentState;
+	machine = aMachine;
+
+	commandsChannel.setController( this );
+}
+
+public State getCurrentState()
+{
+	return currentState;
+}
+
+//public void setCurrentState( State aCurrentState )
+//{
+//	currentState = aCurrentState;
+//}
+//
 public CommandChannel getCommandChannel()
 {
 	return commandsChannel;
@@ -49,7 +66,7 @@ private void transitionTo( State target )
 	currentState.executeCommands( commandsChannel );
 	reportState();
 }
-public static void report( Class aClass, String aMessage )
+public static void report( Class<? extends Controller> aClass, String aMessage )
 {
 	System.out.println( aClass.getSimpleName() + ": " + aMessage );
 }

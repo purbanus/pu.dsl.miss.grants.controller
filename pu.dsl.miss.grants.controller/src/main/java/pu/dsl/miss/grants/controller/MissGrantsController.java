@@ -12,12 +12,13 @@ public static void main( String [] argv )
 }
 public void run()
 {
-	Configuration configuration = new Configuration(); 
+	Configuration configuration = new Configuration();
+	Controller controller = configuration.controller;
 	configuration.controller.reportState();
-	configuration.commandChannel.send( configuration.doorClosed.getCode() );
+	controller.getCommandChannel().send( configuration.doorClosed.getCode() );
 	System.out.println();
-	configuration.commandChannel.send( configuration.drawerOpened.getCode() );
+	controller.getCommandChannel().send( configuration.drawerOpened.getCode() );
 	System.out.println();
-	configuration.commandChannel.send( configuration.lightOn.getCode() );
+	controller.getCommandChannel().send( configuration.lightOn.getCode() );
 }
 }
