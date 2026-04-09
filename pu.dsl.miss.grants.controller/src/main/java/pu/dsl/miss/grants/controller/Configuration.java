@@ -24,8 +24,8 @@ public final State waitingForDrawerState = new State( "waitingForDrawer" );
 public final State unlockedPanelState = new State( "unlockedPanel" );
 
 public final StateMachine machine = new StateMachine( idle );
-public final CommandChannel commandChannel = new CommandChannel();
-public final Controller controller = new Controller( commandChannel, idle, machine );
+
+public final Controller controller = new Controller( idle, machine );
 
 public Configuration()
 {
@@ -45,7 +45,5 @@ public Configuration()
 	unlockedPanelState.addTransition( panelClosed, idle );
 
 	machine.addResetEvents( doorOpened );
-
-	commandChannel.setController( controller );
 }
 }
